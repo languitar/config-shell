@@ -156,6 +156,14 @@ fi
 alias dquilt="quilt --quiltrc=${HOME}/.quiltrc-dpkg"
 complete -F _quilt_completion -o filenames dquilt
 
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1
+then
+    eval "$(pyenv init -)"
+fi
+
 # local additions
 if [ -f ~/.bash_local ]; then
     source ~/.bash_local

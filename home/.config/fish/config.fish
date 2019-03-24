@@ -51,6 +51,7 @@ set -x SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
 # pyenv support
 if command -v pyenv > /dev/null
     status --is-interactive; and source (pyenv init -|psub)
+    status --is-interactive; and source (pyenv virtualenv-init -|psub)
 end
 
 # local config
