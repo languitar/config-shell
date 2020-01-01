@@ -46,7 +46,9 @@ set -x GPG_TTY (tty)
 gpg-connect-agent updatestartuptty /bye >/dev/null
 
 # SSH agent settings
-set -x SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
+if ! set -q SSH_AUTH_SOCK
+    set -x SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
+end
 
 # pyenv support
 if command -v pyenv > /dev/null

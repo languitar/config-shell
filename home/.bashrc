@@ -1,5 +1,3 @@
-# /etc/bash/bashrc
-
 # local environment changes which should also be available in
 # non-interactive sessions
 if [ -f ~/.bash_env ]; then
@@ -96,7 +94,7 @@ fi
 export RUBYOPT=rubygems
 
 # generic environment variables
-if which nvim 2> /dev/null > /dev/null; then
+if command -v nvim 2> /dev/null > /dev/null; then
     export EDITOR=nvim
     alias vim=nvim
 else
@@ -109,14 +107,14 @@ alias grep='grep --color=auto'
 
 man() {
     env \
-        LESS_TERMCAP_mb=$(printf "\e[1;37m") \
-        LESS_TERMCAP_md=$(printf "\e[1;37m") \
-        LESS_TERMCAP_me=$(printf "\e[0m") \
-        LESS_TERMCAP_se=$(printf "\e[0m") \
-        LESS_TERMCAP_so=$(printf "\e[1;47;30m") \
-        LESS_TERMCAP_ue=$(printf "\e[0m") \
-        LESS_TERMCAP_us=$(printf "\e[0;36m") \
-            man "$@"
+        LESS_TERMCAP_mb="$(printf "\e[1;37m")" \
+        LESS_TERMCAP_md="$(printf "\e[1;37m")" \
+        LESS_TERMCAP_me="$(printf "\e[0m")" \
+        LESS_TERMCAP_se="$(printf "\e[0m")" \
+        LESS_TERMCAP_so="$(printf "\e[1;47;30m")" \
+        LESS_TERMCAP_ue="$(printf "\e[0m")" \
+        LESS_TERMCAP_us="$(printf "\e[0;36m")" \
+        man "$@"
 }
 
 # additional commands
@@ -128,16 +126,22 @@ export PASSWORD_STORE_CLIP_TIME=20
 export PASSWORD_STORE_ENABLE_EXTENSIONS="true"
 
 # GPG settings
-export GPG_TTY=$(tty)
+GPG_TTY=$(tty)
+export GPG_TTY
 gpg-connect-agent updatestartuptty /bye >/dev/null
 
 # SSH agent settings
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+if [ -z ${SSH_AUTH_SOCK+x} ]
+then
+    SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+    export SSH_AUTH_SOCK
+fi
 
 # some common paths
 if command -v ruby > /dev/null; then
-    if test -d "$(ruby -rubygems -e "puts Gem.user_dir")/bin"; then
-        export PATH="$(ruby -rubygems -e "puts Gem.user_dir")/bin:$PATH"
+    if test -d "$(ruby -e "puts Gem.user_dir")/bin"; then
+        PATH="$(ruby -e "puts Gem.user_dir")/bin:$PATH"
+        export PATH
     fi
 fi
 if [ -d ~/local/bin ]; then
