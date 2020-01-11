@@ -56,6 +56,10 @@ if command -v pyenv > /dev/null
     status --is-interactive; and source (pyenv virtualenv-init -|psub)
 end
 
+if command -v starship > /dev/null
+    status --is-interactive; and starship init fish | source
+end
+
 # local config
 if test -f ~/.config/fish/localconfig.fish
     source ~/.config/fish/localconfig.fish
