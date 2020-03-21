@@ -168,6 +168,12 @@ then
     eval "$(pyenv init -)"
 fi
 
+# br
+if [ -f "${HOME}/.config/broot/launcher/bash/br" ]
+then
+    source "${HOME}/.config/broot/launcher/bash/br"
+fi
+
 # local additions
 if [ -f ~/.bash_local ]; then
     source ~/.bash_local
