@@ -12,7 +12,7 @@ function man --description 'Format and display the on-line manual pages'
     # man pages priority, without having to put fish's bin directories first in $PATH
     # Temporarily set a MANPATH, unless one is set already
     if not set -q MANPATH
-        set -l fish_manpath (dirname $__fish_datadir)/fish/man
+        set -l fish_manpath (dirname $__fish_data_dir)/fish/man
         if test -d "$fish_manpath"
             # Notice local but exported variable
             set -lx MANPATH "$fish_manpath":(command manpath)
