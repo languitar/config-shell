@@ -1,41 +1,39 @@
-prompt_order = [
-    "username",
-    "hostname",
-    "directory",
-    "git_branch",
-    "git_commit",
-    "git_state",
-    "git_status",
-    "hg_branch",
-    "package",
-    "dotnet",
-    "elm",
-    "golang",
-    "haskell",
-    "java",
-    "nodejs",
-    "php",
-    "python",
-    "ruby",
-    "rust",
-    "terraform",
-    "nix_shell",
-    "conda",
-    "memory_usage",
-    "kubernetes",
-    "aws",
-    "env_var",
-    "crystal",
-    "cmd_duration",
-    "line_break",
-    "jobs",
-    "battery",
-    "time",
-    "character",
-]
+format = """\
+    $username\
+    $hostname\
+    $directory\
+    $git_branch\
+    $git_commit\
+    $git_state\
+    $git_status\
+    $hg_branch\
+    $dotnet\
+    $golang\
+    $java\
+    $nodejs\
+    $python\
+    $ruby\
+    $rust\
+    $terraform\
+    $conda\
+    $memory_usage\
+    $kubernetes\
+    $aws\
+    $env_var\
+    $cmd_duration\
+    $line_break\
+    $jobs\
+    $battery\
+    $time\
+    $character\
+    """
 
 [aws]
-displayed_items = 'profile'
+disabled = true
 
 [kubernetes]
 disabled = false
+format = "[$symbol$context( \\($namespace\\))]($style) "
+
+[git_branch]
+truncation_length = 24
