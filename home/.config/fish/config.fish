@@ -37,6 +37,7 @@ set -x VISUAL $EDITOR
 if test -f ~/.dircolors
     eval (dircolors -c ~/.dircolors | sed 's/>&\/dev\/null$//')
 end
+eval (dircolors -c)
 
 # disable the greeting
 set -x fish_greeting ""
