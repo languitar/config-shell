@@ -1,24 +1,22 @@
-set -x PATH /usr/local/sbin /usr/local/bin /usr/bin/core_perl $PATH
-if command -v ruby > /dev/null
-    if test -d (ruby -e "puts Gem.user_dir")/bin
-        set -x PATH (ruby -e "puts Gem.user_dir")/bin $PATH
+set -x -p PATH /usr/local/sbin /usr/local/bin /usr/bin/core_perl
+if type -q ruby > /dev/null
+    set -x GEM_HOME (ruby -e 'print Gem.user_dir')
+    set -l gempath $GEMDIR/bin
+    if test -d $gempath
+        set -x -p PATH $gempath
     end
 end
 if test -d ~/local/bin
-    set -x PATH ~/local/bin $PATH
+    set -x PATH -p ~/local/bin
 end
 if test -d ~/.local/bin
-    set -x PATH ~/.local/bin $PATH
+    set -x -p PATH ~/.local/bin
 end
 if test -d ~/.cargo/bin
-    set -x PATH ~/.cargo/bin $PATH
+    set -x -p PATH ~/.cargo/bin
 end
 if test -d ~/.npm/bin
-    set -x PATH ~/.npm/bin $PATH
-end
-
-if command -v ruby > /dev/null
-    set -x GEM_HOME (ruby -e 'print Gem.user_dir')
+    set -x -p PATH ~/.npm/bin
 end
 
 # pass settings
@@ -26,7 +24,7 @@ set -x PASSWORD_STORE_CLIP_TIME 20
 set -x PASSWORD_STORE_ENABLE_EXTENSIONS "true"
 
 # determine the editor to use
-if which nvim 2> /dev/null > /dev/null
+if type -q nvim
     set -x EDITOR nvim
 else
     set -x EDITOR vim
@@ -34,10 +32,11 @@ end
 set -x VISUAL $EDITOR
 
 # color support
-if test -f ~/.dircolors
-    eval (dircolors -c ~/.dircolors | sed 's/>&\/dev\/null$//')
+if type -q dircolors
+    eval (dircolors -c)
+else if type -q gdircolors
+    eval (gdircolors -c)
 end
-eval (dircolors -c)
 
 # disable the greeting
 set -x fish_greeting ""
@@ -52,12 +51,12 @@ if ! set -q SSH_AUTH_SOCK
 end
 
 # pyenv support
-if command -v pyenv > /dev/null
-    status --is-interactive; and source (pyenv init -|psub)
-    status --is-interactive; and source (pyenv virtualenv-init -|psub)
+if type -q pyenv > /dev/null
+    status --is-interactive; and source (pyenv init --no-rehash - | psub)
+    status --is-interactive; and source (pyenv virtualenv-init - | psub)
 end
 
-if command -v starship > /dev/null
+if type -q starship > /dev/null
     status --is-interactive; and starship init fish | source
 end
 
