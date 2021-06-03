@@ -51,9 +51,12 @@ if ! set -q SSH_AUTH_SOCK
 end
 
 # pyenv support
-if type -q pyenv > /dev/null
-    status --is-interactive; and source (pyenv init --no-rehash - | psub)
-    status --is-interactive; and source (pyenv virtualenv-init - | psub)
+if type -q pyenv > /dev/null; and status --is-interactive
+    set -x PYENV_ROOT $HOME/.pyenv
+    set -x -p PATH $PYENV_ROOT/bin
+    pyenv init --no-rehash --path | source
+    pyenv init --no-rehash - | source
+    pyenv virtualenv-init - | source
 end
 
 if type -q starship > /dev/null
