@@ -1,7 +1,7 @@
 set -x -p PATH /usr/local/sbin /usr/local/bin /usr/bin/core_perl
 if type -q ruby > /dev/null
     set -x GEM_HOME (ruby -e 'print Gem.user_dir')
-    set -l gempath $GEMDIR/bin
+    set -l gempath $GEM_HOME/bin
     if test -d $gempath
         set -x -p PATH $gempath
     end
