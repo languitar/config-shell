@@ -122,9 +122,6 @@ if [ -f "$HOME/.homesick/repos/homeshick/homeshick.sh" ]; then
     source "$HOME/.homesick/repos/homeshick/homeshick.sh"
 fi
 
-export PASSWORD_STORE_CLIP_TIME=20
-export PASSWORD_STORE_ENABLE_EXTENSIONS="true"
-
 # GPG settings
 GPG_TTY=$(tty)
 export GPG_TTY

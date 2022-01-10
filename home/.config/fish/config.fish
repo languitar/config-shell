@@ -19,10 +19,6 @@ if test -d ~/.npm/bin
     set -x -p PATH ~/.npm/bin
 end
 
-# pass settings
-set -x PASSWORD_STORE_CLIP_TIME 20
-set -x PASSWORD_STORE_ENABLE_EXTENSIONS "true"
-
 # determine the editor to use
 if type -q nvim
     set -x EDITOR nvim
