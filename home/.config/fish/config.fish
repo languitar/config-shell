@@ -77,3 +77,5 @@ set -x ZK_NOTEBOOK_DIR ~/Nextcloud/notes/zettelkasten/
 
 # check for new mail
 check_mail
+
+[ -s ~/.jabba/jabba.fish ]; and source ~/.jabba/jabba.fish
