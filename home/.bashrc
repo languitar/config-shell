@@ -91,8 +91,6 @@ if [ -f /etc/bash_completion ]; then
     source /etc/bash_completion
 fi
 
-export RUBYOPT=rubygems
-
 # generic environment variables
 if command -v nvim 2> /dev/null > /dev/null; then
     export EDITOR=nvim
